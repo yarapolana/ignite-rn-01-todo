@@ -9,7 +9,20 @@ export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleAddTask(newTaskTitle: string) {
-    setTasks(oldState => [...oldState, {id: new Date().getTime(), title: newTaskTitle, done: false}])
+    if (tasks.find(task => task.title === newTaskTitle) !== undefined) {
+      Alert.alert('Item already exists', 'You already added this item')
+      return
+    }
+
+    const newTask = {
+      id: new Date().getTime(),
+      title: newTaskTitle,
+      done: false
+    }
+
+    setTasks(oldState => [...oldState, newTask])
+  }
+
   }
 
   function handleToggleTaskDone(id: number) {
